@@ -2,7 +2,6 @@
   "name": "shalat-ng",
   "description": "A starter project for AngularJS",
   "version": "0.0.0",
-  "homepage": "",
   "license": "MIT",
   "private": true,
   "dependencies": {
