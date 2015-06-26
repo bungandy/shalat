@@ -2,9 +2,10 @@ module.exports = function(grunt) {
 
 	// dependency -----------------
 	grunt.loadNpmTasks('grunt-browser-sync');
+	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-compass');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-contrib-watch');
+	
 
 	//config ----------------------
 	grunt.initConfig({
@@ -30,7 +31,7 @@ module.exports = function(grunt) {
 				tasks: ['compass:dev']
 			},
 			js: {
-				files: ['app/assets/js/*.js'],
+				// files: ['app/assets/js/*.js'],
 				tasks: ['uglify']
 			}
 		},
@@ -56,8 +57,8 @@ module.exports = function(grunt) {
 			all: {
 				files: {
 					'app/assets/js/script.min.js': [
-						'app/assets/js/plugins.js',
-						'app/assets/js/global.js'
+						'app/bower_components/jquery/dist/jquery.js',
+						'app/bower_components/bootstrap/dist/js/bootstrap.min.js'
 					]
 				}
 			},

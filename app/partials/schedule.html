@@ -1,5 +1,12 @@
 <div class="page schedule" ng-controller="scheduleCtrl">
     <div class="container">
+        <h1>
+            <span ng-if="prays.state != null">{{ prays.state }}</span>
+            <span ng-if="prays.city != null">{{ prays.city }}</span>
+            <span class="small">{{ prays.country }}</span>
+            <img class="flag" alt="{{ prays.country }}" src="//flags.fmcdn.net/data/flags/mini/{{ prays.country_code | lowercase }}.png" width="15">
+        </h1>
+        <p class="small">{{ prays.prayer_method_name }}</p>
         <table class="table table-striped schedule">
             <thead>
                 <tr class="hidden-xs">
@@ -20,14 +27,14 @@
                 </tr>
             </thead>
 
-            <tbody>
-                <tr ng-repeat="sched in schedList">
-                    <td>{{ sched.date }}</td>
-                    <td>{{ sched.time.subuh }}</td>
-                    <td>{{ sched.time.dzuhur }}</td>
-                    <td>{{ sched.time.ashar }}</td>
-                    <td>{{ sched.time.magrib }}</td>
-                    <td>{{ sched.time.isya }}</td>
+            <tbody ng-repeat="pray in prays.items">
+                <tr>
+                    <td>{{ pray.date_for }}</td>
+                    <td>{{ pray.fajr }}</td>
+                    <td>{{ pray.dhuhr }}</td>
+                    <td>{{ pray.asr }}</td>
+                    <td>{{ pray.maghrib }}</td>
+                    <td>{{ pray.isha }}</td>
                 </tr>
             </tbody>
         </table>

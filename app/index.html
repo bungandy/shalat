@@ -9,34 +9,17 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- html5-boilerplate -->
-        <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
-        <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
-        <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
-
         <!-- angular -->
         <script src="bower_components/angular/angular.js"></script>
-        <script src="bower_components/angular-route/angular-route.js"></script>
-
+        <script src="bower_components/angularjs-geolocation/dist/angularjs-geolocation.min.js"></script>
         <script src="assets/js/app.js"></script>
 
         <!-- jquery-->
         <script src="bower_components/jquery/dist/jquery.min.js"></script>
 
-        <!-- praytimes -->
-        <script src="assets/js/required/PrayTimes.js"></script>
-
-
         <!-- bootstrap -->
         <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-        <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
-        <!-- moment -->
-        <script src="bower_components/moment/min/moment.min.js"></script>
-         <script src="bower_components/moment/min/locales.min.js"></script>
-
-        <!-- google maps 
-        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>-->
+        <!-- <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script> -->
 
 
         <link rel="stylesheet" href="assets/css/style.css">
@@ -58,6 +41,8 @@
         <header id="header" class="navbar navbar-fixed-top"></header>
 
         <loading></loading>
+
+        <p ng-controller="geoCtrl">{{ coords }}</p>
 
         <schedule></schedule>
 

@@ -3209,6 +3209,7 @@ body {
   -webkit-font-smoothing: antialiased;
   font-smoothing: antialiased;
   color: #34495e;
+  background-color: #f2f2f2;
 }
 
 a {
