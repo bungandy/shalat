@@ -4,10 +4,10 @@
 
 
 
-            _                      _   
-  _ __ ___ (_)_ __   ___ _ __ __ _| |  
- | '_ ` _ \| | '_ \ / _ \ '__/ _` | |  
- | | | | | | | | | |  __/ | | (_| | |_ 
+            _                      _
+  _ __ ___ (_)_ __   ___ _ __ __ _| |
+ | '_ ` _ \| | '_ \ / _ \ '__/ _` | |
+ | | | | | | | | | |  __/ | | (_| | |_
  |_| |_| |_|_|_| |_|\___|_|  \__,_|_(_)
 
  site       : http://mineral.co.id
@@ -18,7 +18,7 @@
 
 
 
-   
+
 
 */
 /* BLOCK GRID
@@ -3256,7 +3256,7 @@ a:hover, a:focus {
   }
 }
 @media (max-width: 767px) {
-  #header .navbar-nav li select {
+  #header .navbar-nav li select, #header .navbar-nav li input[type="text"] {
     margin: 10px 0;
   }
   #header .navbar-nav li span {
@@ -3265,7 +3265,7 @@ a:hover, a:focus {
   }
 }
 @media (min-width: 768px) {
-  #header .navbar-nav li select {
+  #header .navbar-nav li select, #header .navbar-nav li input[type="text"] {
     margin: 8px 0;
   }
   #header .navbar-nav li span {
@@ -3278,7 +3278,6 @@ a:hover, a:focus {
 -------------------------------------------- */
 #footer {
   padding-top: 30px;
-  padding-bottom: 60px;
 }
 #footer a {
   font-weight: bold;
@@ -3288,44 +3287,49 @@ a:hover, a:focus {
   border-bottom: 1px solid #e74c3c;
 }
 
+/* CONTENT
+-------------------------------------------- */
+#content {
+  padding-top: 50px;
+  min-height: 100vh;
+  margin-bottom: -100px;
+}
+
 /* SCHEDULE
 -------------------------------------------- */
-.page.schedule {
-  padding-top: 70px;
-}
 @media (max-width: 320px) {
-  .page.schedule table > thead tr > td, .page.schedule table > thead tr > th, .page.schedule table > tbody tr > td, .page.schedule table > tbody tr > th, .page.schedule table > tfoot tr > td, .page.schedule table > tfoot tr > th {
+  .schedule table > thead tr > td, .schedule table > thead tr > th, .schedule table > tbody tr > td, .schedule table > tbody tr > th, .schedule table > tfoot tr > td, .schedule table > tfoot tr > th {
     padding: 8px 0;
     font-size: 10px;
   }
 }
 @media (min-width: 768px) {
-  .page.schedule table > thead tr > td, .page.schedule table > thead tr > th, .page.schedule table > tbody tr > td, .page.schedule table > tbody tr > th, .page.schedule table > tfoot tr > td, .page.schedule table > tfoot tr > th {
+  .schedule table > thead tr > td, .schedule table > thead tr > th, .schedule table > tbody tr > td, .schedule table > tbody tr > th, .schedule table > tfoot tr > td, .schedule table > tfoot tr > th {
     font-size: 18px;
   }
 }
 @media (min-width: 992px) {
-  .page.schedule table > thead tr > td, .page.schedule table > thead tr > th, .page.schedule table > tbody tr > td, .page.schedule table > tbody tr > th, .page.schedule table > tfoot tr > td, .page.schedule table > tfoot tr > th {
+  .schedule table > thead tr > td, .schedule table > thead tr > th, .schedule table > tbody tr > td, .schedule table > tbody tr > th, .schedule table > tfoot tr > td, .schedule table > tfoot tr > th {
     font-size: 24px;
   }
 }
-.page.schedule table > thead > tr > th {
+.schedule table > thead > tr > th {
   background-color: #34495e;
   color: #fff;
   text-align: center;
 }
-.page.schedule table > tbody > tr > td {
+.schedule table > tbody > tr > td {
   text-align: center;
 }
-.page.schedule table > tbody > tr.now > td {
+.schedule table > tbody > tr.today > td {
   background-color: #1abc9c;
   color: #fff;
   font-weight: bold;
 }
-.page.schedule table > tbody > tr.now > td.now {
+.schedule table > tbody > tr.today > td.now {
   background-color: #1cc9a7;
 }
-.page.schedule table > tbody > tr.now > td.past {
+.schedule table > tbody > tr.today > td.past {
   color: #16a085;
 }
 

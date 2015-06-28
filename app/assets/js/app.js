@@ -1,73 +1,86 @@
-'use strict';
+(function(){
+	'use strict';
 
-var app = angular.module("shalat", ['geolocation']);
+	var app = angular.module("shalat", [
+								'geolocation'
+							]);
 
-app.directive("schedule", function() {
-	return {
-		restrict: "E",
-		templateUrl: "partials/schedule.html"
-	};
-});
+	app.controller("headerCtrl", function($scope){
+		$scope.date = new Date();
+	});
 
-app.directive("header", function() {
-	return {
-		restrict: "E",
-		templateUrl: "partials/header.html"
-	};
-});
+	app.controller("scheduleCtrl", function($scope, $http, geolocation) {
+		var api_key = 'f95c87fd8402d8900320d8af4fa2c2c0';
 
-app.directive("footer", function() {
-	return {
-		restrict: "E",
-		templateUrl: "partials/footer.html"
-	};
-});
+		// get location from device
+		$scope.coords = geolocation.getLocation().then(function(data){
+			var kordinat = data.coords.latitude+','+data.coords.longitude;
+			console.log('kordinat --> [ '+kordinat+' ]');
 
-app.directive("loading", function() {
-	return {
-		restrict: "E",
-		templateUrl: "partials/loading.html"
-	};
-});
+			$http.jsonp("http://muslimsalat.com/"+kordinat+"/weekly.json?key="+api_key+"&callback=JSON_CALLBACK").
+			// $http.jsonp("http://muslimsalat.com/jakarta/monthly.json?key="+api_key+"&callback=JSON_CALLBACK").
+				success(function(data, status, headers, config) {
+			  		$scope.prays = data;
+					console.log('success load data from muslimsalat');
+					console.log(data);
+
+					// today ?
+					var startToday = moment().startOf('day').format('YYYY-M-DD hh:mm a');
+					$scope.today = moment(startToday).format('x');
+					console.log('today     : '+startToday+' --> '+$scope.today);
+
+					// now ?
+					$scope.now = moment().format('x');
+					console.log('now       : '+moment().format('YYYY-M-DD hh:mm a')+' --> '+$scope.now);
+
+					// end today ?
+					$scope.endToday = moment().endOf('day').format('hh:mm a');
+					var endTodayFull = moment().endOf('day').format('YYYY-M-DD hh:mm a');
+					console.log('end today : '+endTodayFull+' --> '+moment(endTodayFull).format('x'));
+
+					$scope.isToday = function(date){
+						var dateToday = moment().format('YYYY-M-DD');
+						if(date == dateToday){
+							return 'today';
+						}
+					}
+
+					$scope.isNow = function(date,pray,nextpray){
+						var prayTime = moment(date+', '+pray);
+						var nextTime = moment(date+', '+nextpray);
+						var nowTime  = moment();
+						var status = moment(nowTime).isBetween(prayTime , nextTime);
+
+						console.log(moment(nowTime).format('YYYY-M-DD hh:mm')+' : [ '+moment(prayTime).format('YYYY-M-DD hh:mm')+' - '+moment(nextTime).format('YYYY-M-DD hh:mm')+' ] -- '+status);
+
+						if(status){
+							return 'now';
+						}
+					}
 
 
-app.controller("headerCtrl", function($scope){
-	$scope.date = new Date();
-});
 
-app.controller('geoCtrl', function($scope,geolocation) {
-    $scope.coords = geolocation.getLocation().then(function(data){
-      return {lat:data.coords.latitude, long:data.coords.longitude};
-    });
-});
+				}).
+				error(function(data, status, headers, config) {
+			  		// log error
+			  		alert('failed to load data');
+				});
+	    });
 
-app.controller("locCtrl", function($scope){
-	navigator.geolocation.getCurrentPosition(function(position){
-		var lat = position.coords.latitude;
-		var lng = position.coords.longitude;
+	});
 
-		$scope.$apply(function(){
-			$scope.lat = lat;
-			$scope.lng = lng;
-		});
+	app.filter('toDateOnly', function () {
+		return function (input) {
+			var output = moment(input).format('D MMM');
+			return output;
+		};
+	});
 
-		console.log(position);
-	})
-});
+	// app.filter('toHH', function () {
+	// 	return function (input) {
+	// 		var output = moment(input).format('HH:mm');
+	// 		return output;
+	// 	};
+	// });
 
-
-app.controller("scheduleCtrl", function($scope, $http) {
-	var api_key = 'f95c87fd8402d8900320d8af4fa2c2c0';
-
-	// $http.get("jakarta-monthly.json").
-	$http.jsonp("http://muslimsalat.com/weekly.json?key="+api_key+"&callback=JSON_CALLBACK").
-		success(function(data, status, headers, config) {
-	  		$scope.prays = data;
-	  		console.log(data);
-	  		console.log($scope.prays.items[0].date_for + ' --> ' + typeof($scope.prays.items[0].date_for));
-		}).
-		error(function(data, status, headers, config) {
-	  		// log error
-		});
-
-});
+})();

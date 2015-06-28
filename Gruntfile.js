@@ -5,47 +5,32 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-compass');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
-	
+
 
 	//config ----------------------
 	grunt.initConfig({
-
-		browserSync: {
-			files: {
-				src : [
-					'app/assets/css/*.css',
-					'app/assets/img/*',
-					// 'app/assets/js/script.min.js',
-					'app/partials/*.html',
-					'app/*.html'
-					],
-			},
-			options: {
-				watchTask: true
-			}	
-		},
 
 		watch: {
 			compass: {
 				files: ['app/assets/css/sass/*.{scss,sass}'],
 				tasks: ['compass:dev']
 			},
-			js: {
-				// files: ['app/assets/js/*.js'],
-				tasks: ['uglify']
-			}
+			// js: {
+			// 	files: ['app/assets/js/*.js'],
+			// 	tasks: ['uglify']
+			// }
 		},
 
 		compass: {
 			dev: {
-				options: {              
+				options: {
 					sassDir: ['app/assets/css/sass'],
 					cssDir: ['app/assets/css'],
 					environment: 'development'
 				}
 			},
 			prod: {
-				options: {              
+				options: {
 					sassDir: ['app/assets/css/sass'],
 					cssDir: ['app/assets/css'],
 					environment: 'production'
@@ -68,6 +53,6 @@ module.exports = function(grunt) {
 
 
 	// task ------------------------
-	grunt.registerTask('default', ['watch','browserSync']);
+	grunt.registerTask('default', ['watch']);
 
 };
