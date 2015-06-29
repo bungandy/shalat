@@ -50,14 +50,19 @@
 						var nextTime = moment(date+', '+nextpray);
 						var nowTime  = moment();
 						var status = moment(nowTime).isBetween(prayTime , nextTime);
+						var past = moment(nowTime).isAfter(nextTime);
 
-						console.log(moment(nowTime).format('YYYY-M-DD hh:mm')+' : [ '+moment(prayTime).format('YYYY-M-DD hh:mm')+' - '+moment(nextTime).format('YYYY-M-DD hh:mm')+' ] -- '+status);
+						// console.log(prayTime+', '+nowTime+', '+nextTime);
+
+						// console.log(moment(nowTime).format('YYYY-M-DD hh:mm')+' : [ '+moment(prayTime).format('YYYY-M-DD hh:mm')+' - '+moment(nextTime).format('YYYY-M-DD hh:mm')+' ] -- '+status);
 
 						if(status){
 							return 'now';
 						}
+						if(past){
+							return 'past';
+						}
 					}
-
 
 
 				}).

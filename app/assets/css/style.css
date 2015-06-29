@@ -3237,7 +3237,6 @@ a:hover, a:focus {
 }
 @media (max-width: 767px) {
   #header .navbar-brand {
-    padding-bottom: 0;
     height: inherit;
   }
 }
@@ -3292,7 +3291,11 @@ a:hover, a:focus {
 #content {
   padding-top: 50px;
   min-height: 100vh;
-  margin-bottom: -100px;
+}
+@media (min-width: 768px) {
+  #content {
+    margin-bottom: -100px;
+  }
 }
 
 /* SCHEDULE
