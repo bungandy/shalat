@@ -5,10 +5,11 @@
 								'geolocation'
 							]);
 
-	app.controller("headerCtrl", function($scope){
-		setInterval(function(){
-			$scope.date = moment(new Date()).format('DD MMM YYYY - HH:mm:ss');
-		},1000);
+	app.controller("headerCtrl", function($scope, $interval){
+		$scope.date = moment(new Date()).format('DD MMM YYYY');
+		$interval(function(){
+	        $scope.time = moment(new Date()).format('HH:mm:ss');
+	    },1000);
 	});
 
 	app.controller("scheduleCtrl", function($scope, $http, geolocation) {
