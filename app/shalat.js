@@ -21,7 +21,7 @@
 			var lng = position.coords.longitude;
 			console.log('Kordinat --> [ lat:'+lat+' -- lng:'+lng+' ]');
 
-			$http.jsonp("http://muslimsalat.com/"+lat+","+lng+"/monthly.json?key="+api_key+"&callback=JSON_CALLBACK").
+			$http.jsonp("https://muslimsalat.com/"+lat+","+lng+"/monthly.json?key="+api_key+"&callback=JSON_CALLBACK").
 				success(function(data, status, headers, config) {
 			  		$scope.prays = data;
 					console.log('success load data from muslimsalat\n|\nv');
