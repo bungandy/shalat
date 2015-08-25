@@ -8,7 +8,7 @@
 	app.controller("headerCtrl", function($scope, $interval){
 		$scope.date = moment(new Date()).format('DD MMM YYYY');
 		$interval(function(){
-	        $scope.time = moment(new Date()).format('HH:mm:ss');
+	        $scope.time = moment().format('HH:mm:ss');
 	    },1000);
 	});
 
@@ -30,7 +30,7 @@
 					get_today();
 					pray_status();
 
-					//if muslimsalat didn't know the kordinat
+					//if muslimsalat don't know the kordinat
 					if($scope.prays.status_code==0){
 						var status = $scope.prays.status_error.invalid_query;
 						console.log(status);
@@ -76,7 +76,7 @@
 			            alert("Geocoder failed due to: " + status);
 			        }
 
-			        // console.log(results[0].address_components[5].long_name);
+			        console.log(results[0].address_components[5].long_name);
 			    });
 		    }
 
@@ -87,33 +87,33 @@
 
 		function get_today(){
 			// today ?
-			var startToday = moment(new Date()).startOf('day').format('YYYY-M-DD hh:mm a');
+			var startToday = moment().startOf('day').format('YYYY-M-DD hh:mm a');
 			$scope.today = moment(startToday).format('x');
 			console.log('today     : '+startToday+' --> '+$scope.today);
 
 			// now ?
-			$scope.now = moment(new Date()).format('x');
+			$scope.now = moment().format('x');
 			console.log('now       : '+moment().format('YYYY-M-DD hh:mm a')+' --> '+$scope.now);
 
 			// end today ?
-			$scope.endToday = moment(new Date()).endOf('day').format('hh:mm a');
-			var endTodayFull = moment(new Date()).endOf('day').format('YYYY-M-DD hh:mm a');
+			$scope.endToday = moment().endOf('day').format('hh:mm a');
+			var endTodayFull = moment().endOf('day').format('YYYY-M-DD hh:mm a');
 			console.log('end today : '+endTodayFull+' --> '+moment(endTodayFull).format('x'));
 
 		} //get_today
 
 		function pray_status(){
 			$scope.isToday = function(date){
-				var dateToday = moment(new Date()).format('YYYY-M-DD');
+				var dateToday = moment().format('YYYY-M-DD');
 				if(date == dateToday){
 					return 'today';
 				}
 			}
 
 			$scope.isNow = function(date,pray,nextpray){
-				var prayTime = moment(new Date(date+', '+pray));
-				var nextTime = moment(new Date(date+', '+nextpray));
-				var nowTime  = moment(new Date());
+				var prayTime = moment(date+', '+pray);
+				var nextTime = moment(date+', '+nextpray);
+				var nowTime  = moment();
 				var status = moment(nowTime).isBetween(prayTime , nextTime);
 				var past = moment(nowTime).isAfter(nextTime);
 
@@ -134,7 +134,7 @@
 
 	app.filter('toDateOnly', function () {
 		return function (input) {
-			var output = moment(new Date(input)).format('D MMM');
+			var output = moment(input).format('D MMM');
 			return output;
 		};
 	});
