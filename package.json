@@ -6,7 +6,7 @@
     "node": "0.12.0"
   },
   "private": true,
-  "repository: http://bitbucket.org/mineral/shalat-ng"
+  "repository": "http://bitbucket.org/mineral/shalat-ng",
   "devDependencies": {
     "bower": "^1.3.1",
     "http-server": "^0.6.1",
