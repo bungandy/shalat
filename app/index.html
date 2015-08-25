@@ -1,101 +1,115 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="shalat">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!--[if lt IE 7]>      <html lang="en" ng-app="shalat" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="shalat" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="shalat" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="shalat" class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Jadwal Shalat (Beta 0.3)</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Jadwal Shalat (Beta 0.3)</title>
 
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
 
-        <!-- jquery-->
-        <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
 
-        <!-- bootstrap -->
-        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-        <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- angular -->
+    <script src="bower_components/angular/angular.js"></script>
 
-        <!-- moment -->
-        <script src="bower_components/moment/moment.js"></script>
+    <!-- angular extend -->
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angularjs-geolocation/dist/angularjs-geolocation.min.js"></script>
 
-        <!-- google maps -->
-        <script src="//maps.googleapis.com/maps/api/js?v=3"></script>
+    <!-- jquery-->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
 
-        <!-- angular -->
-        <script src="bower_components/angular/angular.js"></script>
-        <script src="bower_components/angularjs-geolocation/dist/angularjs-geolocation.min.js"></script>
-        <script src="assets/js/app.js"></script>
+    <!-- modernizr -->
+    <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 
-        <link rel="stylesheet" href="assets/css/style.css">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
-    </head>
-    <body>
-        <header id="header" class="navbar-fixed-top">
+    <!-- moment -->
+    <script src="bower_components/moment/moment.js"></script>
+
+    <!-- google maps -->
+    <script src="//maps.googleapis.com/maps/api/js?v=3"></script>
+    
+    <script src="shalat.js"></script>
+
+    
+</head>
+<body>
+  
+  <header id="header" class="navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="../" class="navbar-brand">Shalat<span>.co <small>(beta)</small></span></a>
+            </div>
+            <nav class="navbar-collapse collapse">
+                <ul class="nav navbar-nav" ng-controller="headerCtrl">
+                    <li><span>{{ date }} &bull; {{ time }}</span></li>
+                </ul>
+            </nav>
+        </div>
+    </header><!-- #header -->
+
+    <div id="content">
+        <div class="schedule" ng-show="prays.country" ng-controller="scheduleCtrl">
             <div class="container">
-                <div class="navbar-header">
-                    <a href="../" class="navbar-brand">Shalat<span>.co <small>(beta)</small></span></a>
-                </div>
-                <nav class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav" ng-controller="headerCtrl">
-                        <li><span>{{ date }} &bull; {{ time }}</span></li>
-                    </ul>
-                </nav>
-            </div>
-        </header><!-- #header -->
+                <h1>
+                    <span ng-show="prays.state">{{ prays.state }}</span>
+                    <span ng-show="prays.city">{{ prays.city }}</span>
+                    <span class="small">{{ prays.country }}</span>
+                    <img class="flag" alt="{{ prays.country }}" ng-src="//flags.fmcdn.net/data/flags/mini/{{ prays.country_code | lowercase }}.png" width="15">
+                </h1>
+                <p class="small"><span ng-show="prays.address">{{ prays.address }}<br/></span> Method calculation: <strong>{{ prays.prayer_method_name }}</strong></p>
+                <table class="table table-striped schedule">
+                    <thead>
+                        <tr class="hidden-xs">
+                            <th>Tgl</th>
+                            <th>Subuh</th>
+                            <th>Dzuhur</th>
+                            <th>Ashr</th>
+                            <th>Magrib</th>
+                            <th>Isya</th>
+                        </tr>
+                        <tr class="visible-xs">
+                            <th></th>
+                            <th>Sub</th>
+                            <th>Dzu</th>
+                            <th>Asr</th>
+                            <th>Mag</th>
+                            <th>Isy</th>
+                        </tr>
+                    </thead>
 
-        <div id="content">
-            <div class="schedule" ng-show="prays.country" ng-controller="scheduleCtrl">
-                <div class="container">
-                    <h1>
-                        <span ng-show="prays.state">{{ prays.state }}</span>
-                        <span ng-show="prays.city">{{ prays.city }}</span>
-                        <span class="small">{{ prays.country }}</span>
-                        <img class="flag" alt="{{ prays.country }}" ng-src="//flags.fmcdn.net/data/flags/mini/{{ prays.country_code | lowercase }}.png" width="15">
-                    </h1>
-                    <p class="small"><span ng-show="prays.address">{{ prays.address }}<br/></span> Method calculation: <strong>{{ prays.prayer_method_name }}</strong></p>
-                    <table class="table table-striped schedule">
-                        <thead>
-                            <tr class="hidden-xs">
-                                <th>Tgl</th>
-                                <th>Subuh</th>
-                                <th>Dzuhur</th>
-                                <th>Ashr</th>
-                                <th>Magrib</th>
-                                <th>Isya</th>
-                            </tr>
-                            <tr class="visible-xs">
-                                <th></th>
-                                <th>Sub</th>
-                                <th>Dzu</th>
-                                <th>Asr</th>
-                                <th>Mag</th>
-                                <th>Isy</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr ng-repeat="pray in prays.items" ng-class="isToday(pray.date_for)">
-                                <td>{{ pray.date_for | toDateOnly }}</td>
-                                <td ng-class="isNow(pray.date_for, pray.fajr, pray.shurooq)">{{ pray.fajr    }}</td>
-                                <td ng-class="isNow(pray.date_for, pray.dhuhr, pray.asr)">   {{ pray.dhuhr   }}</td>
-                                <td ng-class="isNow(pray.date_for, pray.asr, pray.maghrib)"> {{ pray.asr     }}</td>
-                                <td ng-class="isNow(pray.date_for, pray.maghrib, pray.isha)">{{ pray.maghrib }}</td>
-                                <td ng-class="isNow(pray.date_for, pray.isha, endToday)">    {{ pray.isha    }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div><!-- .container -->
-            </div><!-- #schedule -->
-            <div id="foot"></div>
-        </div><!-- #content -->
+                    <tbody>
+                        <tr ng-repeat="pray in prays.items" ng-class="isToday(pray.date_for)">
+                            <td>{{ pray.date_for | toDateOnly }}</td>
+                            <td ng-class="isNow(pray.date_for, pray.fajr, pray.shurooq)">{{ pray.fajr    }}</td>
+                            <td ng-class="isNow(pray.date_for, pray.dhuhr, pray.asr)">   {{ pray.dhuhr   }}</td>
+                            <td ng-class="isNow(pray.date_for, pray.asr, pray.maghrib)"> {{ pray.asr     }}</td>
+                            <td ng-class="isNow(pray.date_for, pray.maghrib, pray.isha)">{{ pray.maghrib }}</td>
+                            <td ng-class="isNow(pray.date_for, pray.isha, endToday)">    {{ pray.isha    }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div><!-- .container -->
+        </div><!-- #schedule -->
+        <div id="foot"></div>
+    </div><!-- #content -->
 
 
-        <footer id="footer">
-            <div class="container text-center">
-                <p>Made with love by <a href="http://mineral.id" target="_blank">Mineral.id</a></p>
-                <p>Other Project : <a href="http://yasin.id?utm_source=Shalat.co" target="_blank">Yasin.id</a></p>
-            </div>
-        </footer><!-- #footer -->
-    </body>
+    <footer id="footer">
+        <div class="container text-center">
+            <p>Made with love by <a href="http://mineral.id" target="_blank">Mineral.id</a></p>
+            <p>Other Project : <a href="http://yasin.id?utm_source=Shalat.co" target="_blank">Yasin.id</a></p>
+        </div>
+    </footer><!-- #footer -->
+  
+</body>
 </html>
