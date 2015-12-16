@@ -36,7 +36,7 @@
     <script src="bower_components/moment/moment.js"></script>
 
     <!-- google maps -->
-    <script src="https://maps.googleapis.com/maps/api/js?v=3"></script>
+    <script src="//maps.googleapis.com/maps/api/js?v=3"></script>
     
     <script src="app.js"></script>
 
@@ -57,16 +57,18 @@
         </div>
     </header><!-- #header -->
 
-    <div id="content">
+    <section id="content">
         <div class="schedule" ng-show="prays.country" ng-controller="scheduleCtrl">
             <div class="container">
-                <h1>
-                    <span ng-show="prays.state">{{ prays.state }}</span>
-                    <span ng-show="prays.city">{{ prays.city }}</span>
-                    <span class="small">{{ prays.country }}</span>
-                    <img class="flag" alt="{{ prays.country }}" ng-src="//flags.fmcdn.net/data/flags/mini/{{ prays.country_code | lowercase }}.png" width="15">
-                </h1>
-                <p class="small"><span ng-show="prays.address">{{ prays.address }}<br/></span> Method calculation: <strong>{{ prays.prayer_method_name }}</strong></p>
+                <div class="info">
+                    <h1>
+                        <span ng-show="prays.state">{{ prays.state }}</span>
+                        <span ng-show="prays.city">{{ prays.city }}</span>
+                        <span class="small">{{ prays.country }}</span>
+                        <img class="flag" alt="{{ prays.country }}" ng-src="//flags.fmcdn.net/data/flags/mini/{{ prays.country_code | lowercase }}.png" width="15">
+                    </h1>
+                    <p class="small"><span ng-show="prays.address">{{ prays.address }}<br/></span> Method calculation: <strong>{{ prays.prayer_method_name }}</strong></p>
+                </div><!-- .info -->
                 <table class="table table-striped schedule">
                     <thead>
                         <tr class="hidden-xs">
@@ -78,7 +80,7 @@
                             <th>Isya</th>
                         </tr>
                         <tr class="visible-xs">
-                            <th></th>
+                            <th>Tgl</th>
                             <th>Sub</th>
                             <th>Dzu</th>
                             <th>Asr</th>
@@ -101,7 +103,7 @@
             </div><!-- .container -->
         </div><!-- #schedule -->
         <div id="foot"></div>
-    </div><!-- #content -->
+    </section><!-- #content -->
 
 
     <footer id="footer">
