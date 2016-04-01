@@ -6,50 +6,21 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Jadwal Shalat (Beta 0.3)</title>
+    <title>Jadwal Shalat (Beta 0.4)</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
-    <link rel="stylesheet" href="app/components/html5-boilerplate/dist/css/normalize.css">
-
-    <link rel="stylesheet" href="assets/css/style.css">
-
-    <!-- angular -->
-    <script src="app/components/angular/angular.js"></script>
-
-    <!-- angular extend -->
-    <script src="app/components/angular-route/angular-route.js"></script>
-    <script src="app/components/angularjs-geolocation/dist/angularjs-geolocation.min.js"></script>
-
-    <!-- jquery-->
-    <script src="app/components/jquery/dist/jquery.min.js"></script>
-
-    <!-- modernizr -->
-    <script src="app/components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
-
-    <!-- bootstrap -->
-    <link rel="stylesheet" href="app/components/bootstrap/dist/css/bootstrap.min.css">
-    <script src="app/components/bootstrap/dist/js/bootstrap.min.js"></script>
-
-    <!-- moment -->
-    <script src="app/components/moment/moment.js"></script>
-
-    <!-- google maps -->
-    <script src="//maps.googleapis.com/maps/api/js?v=3"></script>
-    
-    <script src="shalat.js"></script>
-
-    
+    <link rel="stylesheet" href="assets/style.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8H6Vss45IULhmyy6k4qXhut0ckYa3m6o"></script>
+    <script src="assets/script.js"></script>
 </head>
 <body>
   
-  <header id="header" class="navbar-fixed-top">
+    <header id="header" class="navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <a href="../" class="navbar-brand">Shalat<span>.co <small>(beta)</small></span></a>
+                <a href="/" class="navbar-brand">Shalat<span>.co <small>(beta)</small></span></a>
             </div>
-            <nav class="navbar-collapse collapse">
+            <nav class="navbar-right navbar-collapse collapse">
                 <ul class="nav navbar-nav" ng-controller="headerCtrl">
                     <li><span>{{ date }} &bull; {{ time }}</span></li>
                 </ul>
@@ -57,16 +28,20 @@
         </div>
     </header><!-- #header -->
 
-    <div id="content">
-        <div class="schedule" ng-show="prays.country" ng-controller="scheduleCtrl">
+    <div id="content" ng-controller="scheduleCtrl">
+
+        <div id="loading" ng-hide="location[0].formatted_address"><i></i></div>
+
+        <div class="schedule" ng-show="location[0].formatted_address">
             <div class="container">
+
                 <h1>
-                    <span ng-show="prays.state">{{ prays.state }}</span>
-                    <span ng-show="prays.city">{{ prays.city }}</span>
-                    <span class="small">{{ prays.country }}</span>
-                    <img class="flag" alt="{{ prays.country }}" ng-src="//flags.fmcdn.net/data/flags/mini/{{ prays.country_code | lowercase }}.png" width="15">
+                    <span>{{location[5].address_components[0].long_name}}</span>
+                    <img class="flag" ng-src="//flags.fmcdn.net/data/flags/small/{{ location[7].address_components[0].short_name | lowercase }}.png" width="15">
                 </h1>
-                <p class="small"><span ng-show="prays.address">{{ prays.address }}<br/></span> Method calculation: <strong>{{ prays.prayer_method_name }}</strong></p>
+
+                <p class="small" ng-show="location[0].formatted_address">{{location[0].formatted_address}}</p>
+
                 <table class="table table-striped schedule">
                     <thead>
                         <tr class="hidden-xs">
@@ -88,19 +63,18 @@
                     </thead>
 
                     <tbody>
-                        <tr ng-repeat="pray in prays.items" ng-class="isToday(pray.date_for)">
-                            <td>{{ pray.date_for | toDateOnly }}</td>
-                            <td ng-class="isNow(pray.date_for, pray.fajr, pray.shurooq)">{{ pray.fajr    }}</td>
-                            <td ng-class="isNow(pray.date_for, pray.dhuhr, pray.asr)">   {{ pray.dhuhr   }}</td>
-                            <td ng-class="isNow(pray.date_for, pray.asr, pray.maghrib)"> {{ pray.asr     }}</td>
-                            <td ng-class="isNow(pray.date_for, pray.maghrib, pray.isha)">{{ pray.maghrib }}</td>
-                            <td ng-class="isNow(pray.date_for, pray.isha, endToday)">    {{ pray.isha    }}</td>
+                        <tr ng-repeat="pray in prays.data" ng-class="isToday(pray.date.timestamp)" data-today="{{pray.date.timestamp}}">
+                            <td>{{pray.date.timestamp | toDate}}</td>
+                            <td ng-class="isPrayNow(pray.date.readable, pray.timings.Fajr, pray.timings.Sunrise)">{{pray.timings.Fajr}}</td>
+                            <td ng-class="isPrayNow(pray.date.readable, pray.timings.Dhuhr, pray.timings.Asr)">{{pray.timings.Dhuhr}}</td>
+                            <td ng-class="isPrayNow(pray.date.readable, pray.timings.Asr, pray.timings.Maghrib)">{{pray.timings.Asr}}</td>
+                            <td ng-class="isPrayNow(pray.date.readable, pray.timings.Maghrib, pray.timings.Isha)">{{pray.timings.Maghrib}}</td>
+                            <td ng-class="isPrayNow(pray.date.readable, pray.timings.Isha, endToday)">{{pray.timings.Isha}}</td>
                         </tr>
                     </tbody>
                 </table>
             </div><!-- .container -->
         </div><!-- #schedule -->
-        <div id="foot"></div>
     </div><!-- #content -->
 
 

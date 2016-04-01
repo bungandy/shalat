@@ -1,7 +1,7 @@
 (function(){
 	'use strict';
 
-	var app = angular.module("shalat", [
+	var app = angular.module("shalat", [ 
 								'geolocation'
 							]);
 
@@ -39,11 +39,12 @@
 						
 					}
 
-				});
-				// error(function(data, status, headers, config) {
-				// 	// log error
-				// 	alert('failed to load data');
-				// });
+				}
+			);
+			// error(function(data, status, headers, config) {
+			// 	// log error
+			// 	alert('failed to load data');
+			// });
 
 		    function getPrayByCity(input){
 		    	var geocoder = new google.maps.Geocoder();

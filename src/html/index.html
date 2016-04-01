@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="shalat" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="shalat" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="shalat" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="shalat" class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Jadwal Shalat (Beta 0.4)</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="assets/style.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8H6Vss45IULhmyy6k4qXhut0ckYa3m6o"></script>
+    <script src="assets/script.js"></script>
+</head>
+<body>
+  
+    <header id="header" class="navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="/" class="navbar-brand">Shalat<span>.co <small>(beta)</small></span></a>
+            </div>
+            <nav class="navbar-right navbar-collapse collapse">
+                <ul class="nav navbar-nav" ng-controller="headerCtrl">
+                    <li><span>{{ date }} &bull; {{ time }}</span></li>
+                </ul>
+            </nav>
+        </div>
+    </header><!-- #header -->
+
+    <div id="content" ng-controller="scheduleCtrl">
+
+        <div id="loading" ng-hide="location[0].formatted_address"><i></i></div>
+
+        <div class="schedule" ng-show="location[0].formatted_address">
+            <div class="container">
+
+                <h1>
+                    <span>{{location[5].address_components[0].long_name}}</span>
+                    <img class="flag" ng-src="//flags.fmcdn.net/data/flags/small/{{ location[7].address_components[0].short_name | lowercase }}.png" width="15">
+                </h1>
+
+                <p class="small" ng-show="location[0].formatted_address">{{location[0].formatted_address}}</p>
+
+                <table class="table table-striped schedule">
+                    <thead>
+                        <tr class="hidden-xs">
+                            <th>Tgl</th>
+                            <th>Subuh</th>
+                            <th>Dzuhur</th>
+                            <th>Ashr</th>
+                            <th>Magrib</th>
+                            <th>Isya</th>
+                        </tr>
+                        <tr class="visible-xs">
+                            <th></th>
+                            <th>Sub</th>
+                            <th>Dzu</th>
+                            <th>Asr</th>
+                            <th>Mag</th>
+                            <th>Isy</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr ng-repeat="pray in prays.data" ng-class="isToday(pray.date.timestamp)" data-today="{{pray.date.timestamp}}">
+                            <td>{{pray.date.timestamp | toDate}}</td>
+                            <td ng-class="isPrayNow(pray.date.readable, pray.timings.Fajr, pray.timings.Sunrise)">{{pray.timings.Fajr}}</td>
+                            <td ng-class="isPrayNow(pray.date.readable, pray.timings.Dhuhr, pray.timings.Asr)">{{pray.timings.Dhuhr}}</td>
+                            <td ng-class="isPrayNow(pray.date.readable, pray.timings.Asr, pray.timings.Maghrib)">{{pray.timings.Asr}}</td>
+                            <td ng-class="isPrayNow(pray.date.readable, pray.timings.Maghrib, pray.timings.Isha)">{{pray.timings.Maghrib}}</td>
+                            <td ng-class="isPrayNow(pray.date.readable, pray.timings.Isha, endToday)">{{pray.timings.Isha}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div><!-- .container -->
+        </div><!-- #schedule -->
+    </div><!-- #content -->
+
+
+    <footer id="footer">
+        <div class="container text-center">
+            <p>Made with love by <a href="http://mineral.id" target="_blank">Mineral.id</a></p>
+            <p>Other Project : <a href="http://yasin.id?utm_source=Shalat.co" target="_blank">Yasin.id</a></p>
+        </div>
+    </footer><!-- #footer -->
+
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-59442074-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+  
+</body>
+</html>

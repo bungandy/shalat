@@ -1,0 +1,24 @@
+{
+  "name": "shalat",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "gulp watch"
+  },
+  "author": "Andy Christiawan",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/mineral/starter-ng#readme",
+  "description": "Shalat",
+  "dependencies": {
+    "browser-sync": "^2.9.12",
+    "gulp": "^3.9.0",
+    "gulp-clean": "^0.3.2",
+    "gulp-compass": "^2.1.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-cssnano": "^2.1.0",
+    "gulp-file-include": "^0.13.7",
+    "gulp-plumber": "^1.1.0",
+    "gulp-uglify": "^1.4.2",
+    "run-sequence": "^1.1.5"
+  }
+}
