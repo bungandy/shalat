@@ -16,6 +16,7 @@ gulp.task('js', function(){
             'bower_components/angularjs-geolocation/src/geolocation.js',
             'bower_components/moment/moment.js',
 
+            'src/js/google_maps_api.js',
             'src/js/app.js',
 
             'bower_components/jquery/dist/jquery.js',
