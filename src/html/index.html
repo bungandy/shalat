@@ -6,58 +6,63 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Jadwal Shalat (Beta 0.4)</title>
-    <meta name="description" content="">
+    <title>Shalat.co</title>
+    <link id="favicon" rel="shortcut icon" type="image/png" href="assets/img/favicon.png" />
+    <meta name="description" content="Pray Times location based">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="assets/style.css">
     <script src="assets/script.js"></script>
+    <meta property="og:url"           content="http://www.shalat.co" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:title"         content="Shalat.co" />
+    <meta property="og:description"   content="Pray Times based on your current location" />
+    <meta property="og:image"         content="https://s3-ap-southeast-1.amazonaws.com/mineral-static/shalatco/og_image.png" />
 </head>
 <body>
-  
-    <header id="header" class="navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <a href="/" class="navbar-brand">Shalat<span>.co <small>(beta)</small></span></a>
-            </div>
-            <nav class="navbar-right navbar-collapse collapse">
-                <ul class="nav navbar-nav" ng-controller="headerCtrl">
+    
+    <nav id="header" ng-controller="headerCtrl">
+        <div class="navbar navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Shalat<span>.co</span></a>
+                </div>
+                <ul class="nav navbar-nav navbar-right hidden-xs">
                     <li><span>{{ date }} &bull; {{ time }}</span></li>
                 </ul>
-            </nav>
+            </div>
         </div>
-    </header><!-- #header -->
-
+    </nav>
+  
     <div id="content" ng-controller="scheduleCtrl">
 
         <div id="loading" ng-hide="location[0].formatted_address"><i></i></div>
 
         <div class="schedule" ng-show="location[0].formatted_address">
             <div class="container">
-
-                <h1>
+                <h1 class="location">
                     <span>{{location[5].address_components[0].long_name}}</span>
                     <img class="flag" ng-src="//flags.fmcdn.net/data/flags/small/{{ location[7].address_components[0].short_name | lowercase }}.png" width="15">
                 </h1>
-
                 <p class="small" ng-show="location[0].formatted_address">{{location[0].formatted_address}}</p>
-
+            </div>
+            <div class="container alt">
                 <table class="table table-striped schedule">
                     <thead>
                         <tr class="hidden-xs">
                             <th>Tgl</th>
                             <th>Subuh</th>
-                            <th>Dzuhur</th>
-                            <th>Ashr</th>
-                            <th>Magrib</th>
-                            <th>Isya</th>
+                            <th>Dhuhr</th>
+                            <th>Asr</th>
+                            <th>Maghrib</th>
+                            <th>Isha</th>
                         </tr>
                         <tr class="visible-xs">
                             <th></th>
                             <th>Sub</th>
-                            <th>Dzu</th>
+                            <th>Dhu</th>
                             <th>Asr</th>
                             <th>Mag</th>
-                            <th>Isy</th>
+                            <th>Ish</th>
                         </tr>
                     </thead>
 

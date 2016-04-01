@@ -7,7 +7,8 @@ var gulp        = require('gulp'),
     fileinclude = require('gulp-file-include'),
     browserSync = require('browser-sync'),
     plumber     = require('gulp-plumber'),
-    runSequence = require('run-sequence');
+    runSequence = require('run-sequence'),
+    rev         = require('gulp-rev-mtime');
 
 gulp.task('js', function(){
     gulp.src([
@@ -19,8 +20,6 @@ gulp.task('js', function(){
             'src/js/google_maps_api.js',
             'src/js/app.js',
 
-            'bower_components/jquery/dist/jquery.js',
-            'bower_components/bootstrap-sass/assets/javascripts/bootstrap.js',
             'bower_components/retina.js/src/retina.js'
         ])
         .pipe(plumber({
@@ -29,9 +28,21 @@ gulp.task('js', function(){
             this.emit('end');
         }}))
         .pipe(concatJS('script.js'))
+        // .pipe(uglify())
+        .pipe(gulp.dest('app/assets'));
+});
+
+gulp.task('js-min', function(){
+    gulp.src([
+            'app/assets/script.js'
+        ])
+        .pipe(plumber({
+          errorHandler: function (error) {
+            console.log(error.message);
+            this.emit('end');
+        }}))
         .pipe(uglify())
         .pipe(gulp.dest('app/assets'));
-
 });
 
 gulp.task('compass', function() {
@@ -46,6 +57,17 @@ gulp.task('compass', function() {
             css: 'app/assets',
             sass: 'src/sass'
         }))
+        // .pipe(cssnano({discardComments: {removeAll: true}}))
+        .pipe(gulp.dest('app/assets'));
+});
+
+gulp.task('css-min', function() {
+    gulp.src('app/assets/style.css')
+        .pipe(plumber({
+          errorHandler: function (error) {
+            console.log(error.message);
+            this.emit('end');
+        }}))
         .pipe(cssnano({discardComments: {removeAll: true}}))
         .pipe(gulp.dest('app/assets'));
 });
@@ -102,20 +124,21 @@ gulp.task('clean', function() {
 });
 
 gulp.task('build', function() {
-    runSequence('compass', function(){
-         gulp.src([
-                'app/assets/script.js'
-            ])
-            .pipe(plumber())
-            .pipe(uglify());
-
-        gulp.src([
-                'app/assets/app.js'
-            ])
-            .pipe(plumber())
-            .pipe(uglify());
-        console.log('===============================[ script, css are compressed ]===============================');
+    runSequence(['js-min','css-min'], function(){
+        gulp.src(['src/html/*.html'])
+        .pipe(plumber())
+        .pipe(fileinclude({
+            prefix: '@@',
+            basepath: '@file'
+        }))
+        .pipe(rev({
+            'cwd': 'app',
+            'suffix': 'v',
+        }))
+        .pipe(gulp.dest('app'));
+        console.log('===============================[ ready to service ]===============================');
     });
+    
 });
 
 gulp.task('default', ['clean'], function(){});
