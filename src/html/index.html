@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html lang="en" ng-app="shalat" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html lang="en" ng-app="shalat" class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html lang="en" ng-app="shalat" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" ng-app="shalat" class="no-js"> <!--<![endif]-->
+<html lang="en" ng-app="shalat">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,11 +11,19 @@
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8H6Vss45IULhmyy6k4qXhut0ckYa3m6o">
     </script>
     <script src="assets/script.js"></script>
+
     <meta property="og:url"           content="http://www.shalat.co" />
     <meta property="og:type"          content="website" />
     <meta property="og:title"         content="Shalat.co" />
     <meta property="og:description"   content="Pray Times based on your current location" />
     <meta property="og:image"         content="https://s3-ap-southeast-1.amazonaws.com/mineral-static/shalatco/og_image.png" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@bungandy" />
+    <meta name="twitter:title" content="Shalat.co" />
+    <meta name="twitter:description" content="Pray Times based on your current location" />
+    <meta name="twitter:image" content="https://s3-ap-southeast-1.amazonaws.com/mineral-static/shalatco/og_image.png" />
+
 </head>
 <body>
     
@@ -50,21 +55,13 @@
             <div class="container alt">
                 <table class="table table-striped schedule">
                     <thead>
-                        <tr class="hidden-xs">
-                            <th>Tgl</th>
-                            <th>Subuh</th>
-                            <th>Dhuhr</th>
+                        <tr>
+                            <th><span>Tgl</span></th>
+                            <th>Sub<span>uh</span></th>
+                            <th>Dhu<span>hr</span></th>
                             <th>Asr</th>
-                            <th>Maghrib</th>
-                            <th>Isha</th>
-                        </tr>
-                        <tr class="visible-xs">
-                            <th></th>
-                            <th>Sub</th>
-                            <th>Dhu</th>
-                            <th>Asr</th>
-                            <th>Mag</th>
-                            <th>Ish</th>
+                            <th>Mag<span>hrib</span></th>
+                            <th>Ish<span>a</span></th>
                         </tr>
                     </thead>
 

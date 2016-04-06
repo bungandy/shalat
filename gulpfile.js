@@ -16,8 +16,11 @@ gulp.task('js', function(){
             'bower_components/angular-route/angular-route.js',
             'bower_components/angularjs-geolocation/src/geolocation.js',
             'bower_components/moment/moment.js',
+            'bower_components/jquery/dist/jquery.js',
 
             'src/js/app.js',
+
+            'src/js/global.js',
 
             'bower_components/retina.js/src/retina.js'
         ])
@@ -132,7 +135,7 @@ gulp.task('build', function() {
         }))
         .pipe(rev({
             'cwd': 'app',
-            'suffix': 'v',
+            'suffix': 'built',
         }))
         .pipe(gulp.dest('app'));
         console.log('===============================[ ready to service ]===============================');

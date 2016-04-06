@@ -159,6 +159,12 @@ a{
                     background-color: $wet_asphalt;
                     color: #fff;
                     text-align: center;
+
+                    @media(max-width:$ipad - 1px){
+                        span{
+                            display: none; 
+                        }
+                    }
                 }
             }
         }
