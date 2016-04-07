@@ -181,7 +181,7 @@ a{
                     font-weight: bold;
                 }
                 > td.now{
-                    background-color: lighten($turquoise,3%);
+                    background-color: $alizarin;
                 }
                 > td.past{
                     color: $green_sea;
