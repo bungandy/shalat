@@ -1,50 +1,80 @@
+<!--
+            _                      _   
+  _ __ ___ (_)_ __   ___ _ __ __ _| |  
+ | '_ ` _ \| | '_ \ / _ \ '__/ _` | |  
+ | | | | | | | | | |  __/ | | (_| | |_ 
+ |_| |_| |_|_|_| |_|\___|_|  \__,_|_(_)
+
+ site       : http://mineral.co.id
+ email      : hello@mineral.co.id
+ twitter    : @mineralstudio
+
+
+
+
+
+
+
+
+
+
+
+
+-->
 <!DOCTYPE html>
-<html lang="en" ng-app="shalat">
+<html lang="en" ng-app="shalat" ng-controller="scheduleCtrl">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Shalat.co</title>
-    <link id="favicon" rel="shortcut icon" type="image/png" href="assets/img/favicon.png?built=1459525779000">
+    <link id="favicon" rel="shortcut icon" type="image/png" href="assets/img/favicon.png" />
     <meta name="description" content="Pray Times location based">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="assets/style.css?built=1460027248000">
+    <link rel="stylesheet" href="assets/style.css">
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8H6Vss45IULhmyy6k4qXhut0ckYa3m6o">
     </script>
-    <script src="assets/script.js?built=1460027245000"></script>
+    <script src="assets/script.js"></script>
 
-    <meta property="og:url" content="http://www.shalat.co">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Shalat.co">
-    <meta property="og:description" content="Pray Times based on your current location">
-    <meta property="og:image" content="https://s3-ap-southeast-1.amazonaws.com/mineral-static/shalatco/og_image.png">
+    <link rel="canonical" href="http://www.shalat.co" />
 
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:site" content="@bungandy">
-    <meta name="twitter:title" content="Shalat.co">
-    <meta name="twitter:description" content="Pray Times based on your current location">
-    <meta name="twitter:image" content="https://s3-ap-southeast-1.amazonaws.com/mineral-static/shalatco/og_image.png">
+    <meta property="og:url"             content="http://www.shalat.co" />
+    <meta property="og:type"            content="article" />
+    <meta property="og:title"           content="Shalat.co" />
+    <meta property="og:description"     content="{{ metatags.description }}" />
+    <meta property="og:image"           content="http://mineral-static.s3-ap-southeast-1.amazonaws.com/shalatco/og_image_1200x650.png" />
+
+    <meta property="fb:app_id" content="1092565430796049" /> 
+
+    <meta name="twitter:card"           content="summary_large_image" />
+    <meta name="twitter:site"           content="@bungandy" />
+    <meta name="twitter:creator"        content="@bungandy">
+    <meta name="twitter:title"          content="Shalat.co" />
+    <meta name="twitter:description"    content="Pray Times based on your current location." />
+    <meta name="twitter:image"          content="http://mineral-static.s3-ap-southeast-1.amazonaws.com/shalatco/og_image_600x330.png" />
 
 </head>
 <body>
-    
-    <nav id="header" ng-controller="headerCtrl">
+
+    <h1>{{ metatags.description }}</h1>
+
+    <nav id="header">
         <div class="navbar navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#">Shalat<span>.co</span></a>
                 </div>
                 <ul class="nav navbar-nav navbar-right hidden-xs">
-                    <li><span>{{ date }} &bull; {{ time }}</span></li>
+                    <li><span>{{ today }}</span></li>
                 </ul>
             </div>
         </div>
     </nav>
   
-    <div id="content" ng-controller="scheduleCtrl">
+    <div id="content">
 
-        <div id="loading" ng-hide="location[0].formatted_address"><i></i></div>
+        <!-- <div id="loading" ng-hide="location[0].formatted_address"><i></i></div> -->
 
-        <div class="schedule" ng-show="location[0].formatted_address">
+        <div class="schedule"><!-- ng-show="location[0].formatted_address" -->
             <div class="container">
                 <h1 class="location">
                     <span>{{location[5].address_components[0].long_name}}</span>
@@ -88,11 +118,26 @@
         </div>
     </footer><!-- #footer -->
 
+    <input id="meta" type="hidden" value="{{ metadata.description }}">
+
     <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : '1092565430796049',
+                xfbml      : true,
+                version    : 'v2.5'
+            });
+        };
+
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
         ga('create', 'UA-59442074-1', 'auto');
         ga('send', 'pageview');
     </script>

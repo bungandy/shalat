@@ -15,11 +15,12 @@ gulp.task('js', function(){
             'bower_components/angular/angular.js',
             'bower_components/angular-route/angular-route.js',
             'bower_components/angularjs-geolocation/src/geolocation.js',
+            'bower_components/angular-metatags/angular-metatags-module/angular-metatags.js',
             'bower_components/moment/moment.js',
-            'bower_components/jquery/dist/jquery.js',
-
+            
             'src/js/app.js',
 
+            'bower_components/jquery/dist/jquery.js',
             'src/js/global.js',
 
             'bower_components/retina.js/src/retina.js'

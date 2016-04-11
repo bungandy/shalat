@@ -1,13 +1,10 @@
 var app = angular.module('shalat', ['geolocation'])
 
-.controller('headerCtrl', ['$scope', '$interval', function($scope, $interval){
-	$scope.date = moment(new Date()).format('D MMM YYYY');
-	$interval(function(){
-        $scope.time = moment().format('HH:mm:ss');
-    },1000);
-}])
+.controller('scheduleCtrl', ['$scope', '$http', '$interval', 'geolocation', function($scope, $http, $interval, geolocation) {
 
-.controller('scheduleCtrl', ['$scope', '$http', 'geolocation', function($scope, $http, geolocation) {
+	$interval(function(){
+        $scope.today = moment(new Date()).format('D MMM YYYY - HH:mm:ss');
+    },1000);
 
 	// get location from device
 	$scope.coords = geolocation.getLocation().then(function(position){
@@ -50,18 +47,30 @@ var app = angular.module('shalat', ['geolocation'])
 				})
 	    		.then(function successCallback(response) {
 	    			var data = response.data;
-
 					$scope.prays = data;
-			  		// console.log($scope.prays);
+
+					var today = moment.utc(new Date()).format('D'),
+						prayToday = data.data[today-1],
+						metaDescSched  = prayToday.date.readable+' -- '+'Subuh: '+prayToday.timings.Fajr+' ';
+						metaDescSched += 'Dhuhr: '+prayToday.timings.Dhuhr+' ';
+						metaDescSched += 'Asr: '+prayToday.timings.Asr+' ';
+						metaDescSched += 'Maghrib: '+prayToday.timings.Maghrib+' ';
+						metaDescSched += 'Isha: '+prayToday.timings.Isha;
+
+					$scope.metadata = {
+				        'description': metaDescSched,
+				    };
+
+				    // console.log($scope.metadata.description);
 
 				}, function errorCallback(response) {
 					console.log('retry');
-					// called asynchronously if an error occurs
-					// or server returns response with an error status.
 				}
 			);
 	    }
 
+
+	    // Add class today
 	    $scope.isToday = function(input){
 			var dateServer 	= moment(new Date()).format('D'),
 				datePray 	= moment.unix(input).format('D');
@@ -71,6 +80,7 @@ var app = angular.module('shalat', ['geolocation'])
 			}
 		}
 
+		// Add class now / past
 		$scope.isPrayNow = function(datePray, timePrayA,timePrayB){
 			var timeServer 	= moment.utc(new Date()),
 
@@ -80,18 +90,6 @@ var app = angular.module('shalat', ['geolocation'])
 
 				statusNow 	= moment(new Date(timeServer)).isBetween(new Date(timePray) , new Date(timePrayNext)),
 				statusPast 	= moment(new Date(timeServer)).isAfter(new Date(timePrayNext));
-
-			// console.log('\n\ntime server : ');
-			// console.log(timeServer);
-			// console.log('===');
-			// console.log('time pray   : ');
-			// console.log(timePray);
-			// console.log('===');
-			// console.log('next pray   : ');
-			// console.log(timePrayNext);
-			// console.log('===');
-			// console.log('now : '+statusNow, '\npast : '+statusPast);
-			// console.log('-------------');
 
 			if(statusNow){
 				return 'now';
@@ -107,13 +105,9 @@ var app = angular.module('shalat', ['geolocation'])
 
 }])
 
-.filter('toDate', function () {
-	return function (input) {
+.filter('toDate', function(){
+	return function(input) {
 		var output = moment.unix(input).format('D');
 		return output;
 	};
 });
-
-function scrollToday(){
-	
-}
