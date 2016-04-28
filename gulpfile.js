@@ -13,9 +13,10 @@ var gulp        = require('gulp'),
 gulp.task('js', function(){
     gulp.src([
             'bower_components/angular/angular.js',
-            'bower_components/angular-route/angular-route.js',
             'bower_components/angularjs-geolocation/src/geolocation.js',
+            'bower_components/angular-route/angular-route.js',
             'bower_components/angular-metatags/angular-metatags-module/angular-metatags.js',
+            
             'bower_components/moment/moment.js',
             
             'src/js/app.js',

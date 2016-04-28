@@ -1,4 +1,4 @@
-var app = angular.module('shalat', ['geolocation'])
+var app = angular.module('shalat', ['ngRoute','metatags','geolocation'])
 
 .controller('scheduleCtrl', ['$scope', '$http', '$interval', 'geolocation', function($scope, $http, $interval, geolocation) {
 
@@ -43,7 +43,7 @@ var app = angular.module('shalat', ['geolocation'])
 	    function getPrayByCity(cityname,countryname){
 	    	$http({
 				method: 'GET',
-				url: 'http://api.aladhan.com/calendarByCity?city='+cityname+'&country='+countryname
+				url: 'https://api.aladhan.com/calendarByCity?city='+cityname+'&country='+countryname
 				})
 	    		.then(function successCallback(response) {
 	    			var data = response.data;
@@ -51,15 +51,13 @@ var app = angular.module('shalat', ['geolocation'])
 
 					var today = moment.utc(new Date()).format('D'),
 						prayToday = data.data[today-1],
-						metaDescSched  = prayToday.date.readable+' -- '+'Subuh: '+prayToday.timings.Fajr+' ';
-						metaDescSched += 'Dhuhr: '+prayToday.timings.Dhuhr+' ';
-						metaDescSched += 'Asr: '+prayToday.timings.Asr+' ';
-						metaDescSched += 'Maghrib: '+prayToday.timings.Maghrib+' ';
-						metaDescSched += 'Isha: '+prayToday.timings.Isha;
+						todayPrayShare  = prayToday.date.readable+' -- '+'Subuh: '+prayToday.timings.Fajr+' ';
+						todayPrayShare += 'Dhuhr: '+prayToday.timings.Dhuhr+' ';
+						todayPrayShare += 'Asr: '+prayToday.timings.Asr+' ';
+						todayPrayShare += 'Maghrib: '+prayToday.timings.Maghrib+' ';
+						todayPrayShare += 'Isha: '+prayToday.timings.Isha;
 
-					$scope.metadata = {
-				        'description': metaDescSched,
-				    };
+					$scope.todayPrayText = todayPrayShare;
 
 				    // console.log($scope.metadata.description);
 
@@ -110,4 +108,36 @@ var app = angular.module('shalat', ['geolocation'])
 		var output = moment.unix(input).format('D');
 		return output;
 	};
-});
+})
+
+.config(['$routeProvider', function($routeProvider){
+	$routeProvider
+		.when('/',{
+			templateUrl: 'index.html',
+			controller: 'scheduleCtrl'
+		})
+		.otherwise({redirectTo: '/'});
+}]);
+
+// .config(['$routeProvider','MetaTagsProvider', function($routeProvider, MetaTagsProvider){
+// 	$routeProvider
+// 		.when('/',{
+// 			templateUrl: 'index.html',
+// 			controller: 'scheduleCtrl'
+// 		})
+// 		.otherwise({redirectTo: '/'});
+
+// 	MetaTagsProvider
+// 		.when('/', {
+// 			title: 'Shalat.co',
+// 			url: 'http://www.shalat.co',
+// 			description: 'Pray Times based on your current location.',
+// 			og_image_large: 'http://mineral-static.s3-ap-southeast-1.amazonaws.com/shalatco/og_image_1200x650.png',
+// 			og_image_small: 'http://mineral-static.s3-ap-southeast-1.amazonaws.com/shalatco/og_image_600x330.png',
+// 			fb_appid: '1092565430796049'
+// 		});
+// }])
+
+// .run(['MetaTags', function(MetaTags){
+//     MetaTags.initialize();
+// }]);

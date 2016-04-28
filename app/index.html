@@ -22,41 +22,44 @@
 
 -->
 <!DOCTYPE html>
-<html lang="en" ng-app="shalat" ng-controller="scheduleCtrl">
+<html lang="en" ng-app="shalat">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Shalat.co</title>
-    <link id="favicon" rel="shortcut icon" type="image/png" href="assets/img/favicon.png" />
-    <meta name="description" content="Pray Times location based">
+
+    <link rel="shortcut icon" href="assets/img/favicon.png?built=1461831436000" type="image/png">
+    <link rel="stylesheet" href="assets/style.css?built=1461831299000">
+    <link rel="canonical" href="https://www.shalat.co">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="assets/style.css">
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8H6Vss45IULhmyy6k4qXhut0ckYa3m6o">
+    
+    <meta name="description" content="Pray Times location based">
+
+    <meta property="og:url" content="http://www.shalat.co">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Shalat.co">
+    <meta property="og:description" content="Pray Times based on your current location">
+    <meta property="og:image" content="https://mineral-static.s3-ap-southeast-1.amazonaws.com/shalatco/og_image_1200x650.png">
+
+    <meta property="fb:app_id" content="1092565430796049"> 
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@bungandy">
+    <meta name="twitter:creator" content="@bungandy">
+    <meta name="twitter:title" content="Shalat.co">
+    <meta name="twitter:description" content="Pray Times based on your current location">
+    <meta name="twitter:image" content="https://mineral-static.s3-ap-southeast-1.amazonaws.com/shalatco/og_image_600x330.png">
+
+    
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8H6Vss45IULhmyy6k4qXhut0ckYa3m6o" async defer>
     </script>
-    <script src="assets/script.js"></script>
+    <script src="assets/script.js?built=1461831276000"></script>
 
-    <link rel="canonical" href="http://www.shalat.co" />
-
-    <meta property="og:url"             content="http://www.shalat.co" />
-    <meta property="og:type"            content="article" />
-    <meta property="og:title"           content="Shalat.co" />
-    <meta property="og:description"     content="{{ metatags.description }}" />
-    <meta property="og:image"           content="http://mineral-static.s3-ap-southeast-1.amazonaws.com/shalatco/og_image_1200x650.png" />
-
-    <meta property="fb:app_id" content="1092565430796049" /> 
-
-    <meta name="twitter:card"           content="summary_large_image" />
-    <meta name="twitter:site"           content="@bungandy" />
-    <meta name="twitter:creator"        content="@bungandy">
-    <meta name="twitter:title"          content="Shalat.co" />
-    <meta name="twitter:description"    content="Pray Times based on your current location." />
-    <meta name="twitter:image"          content="http://mineral-static.s3-ap-southeast-1.amazonaws.com/shalatco/og_image_600x330.png" />
 
 </head>
-<body>
-
-    <h1>{{ metatags.description }}</h1>
-
+<body ng-controller="scheduleCtrl">
+    
     <nav id="header">
         <div class="navbar navbar-fixed-top">
             <div class="container">
@@ -72,9 +75,9 @@
   
     <div id="content">
 
-        <!-- <div id="loading" ng-hide="location[0].formatted_address"><i></i></div> -->
+        <div id="loading" ng-hide="location[0].formatted_address"><i></i></div>
 
-        <div class="schedule"><!-- ng-show="location[0].formatted_address" -->
+        <div class="schedule" ng-show="location[0].formatted_address">
             <div class="container">
                 <h1 class="location">
                     <span>{{location[5].address_components[0].long_name}}</span>
@@ -113,14 +116,16 @@
 
     <footer id="footer">
         <div class="container text-center">
+            <ul class="share">
+                <li><div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></li>
+                <li><a href="https://twitter.com/share" class="twitter-share-button" data-related="bungandy"></a></li>
+            </ul>
             <p>Made with love by <a href="http://mineral.id" target="_blank">Mineral.id</a></p>
             <p>Other Project : <a href="http://yasin.id?utm_source=Shalat.co" target="_blank">Yasin.id</a></p>
         </div>
     </footer><!-- #footer -->
 
-    <input id="meta" type="hidden" value="{{ metadata.description }}">
-
-    <script>
+    <script async defer>
         window.fbAsyncInit = function() {
             FB.init({
                 appId      : '1092565430796049',
@@ -136,6 +141,8 @@
             js.src = "//connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
+
+        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
 
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
         ga('create', 'UA-59442074-1', 'auto');
