@@ -27,8 +27,8 @@
     <meta charset="utf-8">
     <title>Shalat.co</title>
 
-    <link rel="shortcut icon" href="assets/img/favicon.png?built=1461831436000" type="image/png">
-    <link rel="stylesheet" href="assets/style.css?built=1461831299000">
+    <link rel="shortcut icon" href="assets/img/favicon.png?built=1495835772000" type="image/png">
+    <link rel="stylesheet" href="assets/style.css?built=1495843542000">
     <link rel="canonical" href="https://www.shalat.co">
     
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -36,7 +36,7 @@
     
     <meta name="description" content="Pray Times location based">
 
-    <meta property="og:url" content="http://www.shalat.co">
+    <meta property="og:url" content="https://www.shalat.co">
     <meta property="og:type" content="article">
     <meta property="og:title" content="Shalat.co">
     <meta property="og:description" content="Pray Times based on your current location">
@@ -54,7 +54,7 @@
     
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8H6Vss45IULhmyy6k4qXhut0ckYa3m6o" async defer>
     </script>
-    <script src="assets/script.js?built=1461831276000"></script>
+    <script src="assets/script.js?built=1495843538000"></script>
 
 
 </head>
@@ -64,7 +64,7 @@
         <div class="navbar navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Shalat<span>.co</span></a>
+                    <a class="navbar-brand" href="https://shalat.co">Shalat<span>.co</span></a>
                 </div>
                 <ul class="nav navbar-nav navbar-right hidden-xs">
                     <li><span>{{ today }}</span></li>
@@ -75,37 +75,39 @@
   
     <div id="content">
 
-        <div id="loading" ng-hide="location[0].formatted_address"><i></i></div>
+        <div id="loading" ng-hide="location"><i></i></div>
 
-        <div class="schedule" ng-show="location[0].formatted_address">
+        <div class="schedule" ng-show="location">
             <div class="container">
                 <h1 class="location">
-                    <span>{{location[5].address_components[0].long_name}}</span>
-                    <img class="flag" ng-src="//flags.fmcdn.net/data/flags/small/{{ location[7].address_components[0].short_name | lowercase }}.png" width="15">
+                    <span>{{location.state}}</span>
+                    <img class="flag" ng-src="//flags.fmcdn.net/data/flags/small/{{ location.country_code | lowercase }}.png" width="15">
                 </h1>
-                <p class="small" ng-show="location[0].formatted_address">{{location[0].formatted_address}}</p>
+                <p class="small">
+                    <span ng-show="location.address">{{location.address}} &mdash; </span>
+                    <span ng-show="location.prayer_method_name">{{location.prayer_method_name}}</span></p>
             </div>
             <div class="container alt">
                 <table class="table table-striped schedule">
                     <thead>
                         <tr>
                             <th><span>Tgl</span></th>
-                            <th>Sub<span>uh</span></th>
+                            <th>Fajr<span></span></th>
                             <th>Dhu<span>hr</span></th>
                             <th>Asr</th>
                             <th>Mag<span>hrib</span></th>
-                            <th>Ish<span>a</span></th>
+                            <th>Ish<span>'a</span></th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        <tr ng-repeat="pray in prays.data" ng-class="isToday(pray.date.timestamp)" data-today="{{pray.date.timestamp}}">
-                            <td>{{pray.date.timestamp | toDate}}</td>
-                            <td ng-class="isPrayNow(pray.date.readable, pray.timings.Fajr, pray.timings.Sunrise)">{{pray.timings.Fajr}}</td>
-                            <td ng-class="isPrayNow(pray.date.readable, pray.timings.Dhuhr, pray.timings.Asr)">{{pray.timings.Dhuhr}}</td>
-                            <td ng-class="isPrayNow(pray.date.readable, pray.timings.Asr, pray.timings.Maghrib)">{{pray.timings.Asr}}</td>
-                            <td ng-class="isPrayNow(pray.date.readable, pray.timings.Maghrib, pray.timings.Isha)">{{pray.timings.Maghrib}}</td>
-                            <td ng-class="isPrayNow(pray.date.readable, pray.timings.Isha, endToday)">{{pray.timings.Isha}}</td>
+                        <tr ng-repeat="pray in prays" ng-class="isToday(pray.date_for)" data-today="{{pray.date_for}}">
+                            <td>{{pray.date_for | toDate}}</td>
+                            <td ng-class="isPrayNow(pray.date_for, pray.fajr, pray.shurooq)">{{pray.fajr | toTime}}</td>
+                            <td ng-class="isPrayNow(pray.date_for, pray.dhuhr, pray.asr)">{{pray.dhuhr | toTime}}</td>
+                            <td ng-class="isPrayNow(pray.date_for, pray.asr, pray.maghrib)">{{pray.asr | toTime}}</td>
+                            <td ng-class="isPrayNow(pray.date_for, pray.maghrib, pray.isha)">{{pray.maghrib | toTime}}</td>
+                            <td ng-class="isPrayNow(pray.date_for, pray.isha, endToday)">{{pray.isha | toTime}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -120,7 +122,7 @@
                 <li><div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></li>
                 <li><a href="https://twitter.com/share" class="twitter-share-button" data-related="bungandy"></a></li>
             </ul>
-            <p>Made with love by <a href="http://mineral.id" target="_blank">Mineral.id</a></p>
+            <p>Made with love by <a href="http://mineral.id" target="_blank">Mineral.id</a> v1.5.1705 </p>
             <p>Other Project : <a href="http://yasin.id?utm_source=Shalat.co" target="_blank">Yasin.id</a></p>
         </div>
     </footer><!-- #footer -->

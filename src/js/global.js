@@ -4,13 +4,17 @@ $(function(){
 			var todayElem	= $('.schedule .today'),
 				todayOffs	= (todayElem.outerHeight()*2)-2,
 				todayPos 	= todayElem.offset().top - todayOffs;
-			$('body').animate({
-				scrollTop: todayPos
-			});
-			console.log('data loaded.');
+			console.log('data loaded');
 			clearInterval(checkTable);
+			// console.log(todayPos);
+
+			if(todayPos>($(window).height()*0.75)){
+				$('body').animate({
+					scrollTop: todayPos
+				});
+			}
 		}else{
 			console.log('waiting data..');
 		}
-	},1000);
+	},100);
 });

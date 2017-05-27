@@ -16,12 +16,11 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap-sass": "^3.3.6",
-    "retina.js": "retinajs#^1.3.0",
     "angular": "^1.5.3",
     "angular-route": "^1.5.3",
     "angularjs-geolocation": "^0.1.1",
     "moment": "^2.12.0",
-    "angular-metatags": "*"
+    "bootstrap-sass": "^3.3.6",
+    "retina.js": "retinajs#^1.3.0"
   }
 }
