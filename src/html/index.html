@@ -67,7 +67,7 @@
                     <a class="navbar-brand" href="https://shalat.co">Shalat<span>.co</span></a>
                 </div>
                 <ul class="nav navbar-nav navbar-right hidden-xs">
-                    <li><span>{{ today }}</span></li>
+                    <li><span>{{today}}</span></li>
                 </ul>
             </div>
         </div>
@@ -80,8 +80,8 @@
         <div class="schedule" ng-show="location">
             <div class="container">
                 <h1 class="location">
-                    <span>{{location.state}}</span>
-                    <img class="flag" ng-src="//flags.fmcdn.net/data/flags/small/{{ location.country_code | lowercase }}.png" width="15">
+                    <span>{{location.city}}</span>
+                    <img class="flag" ng-src="//flags.fmcdn.net/data/flags/small/{{location.country_code | lowercase}}.png" width="15">
                 </h1>
                 <p class="small">
                     <span ng-show="location.address">{{location.address}} &mdash; </span>
@@ -91,8 +91,8 @@
                 <table class="table table-striped schedule">
                     <thead>
                         <tr>
-                            <th><span>Tgl</span></th>
-                            <th>Fajr<span></span></th>
+                            <th><span>Date</span></th>
+                            <th>Faj<span>r</span></th>
                             <th>Dhu<span>hr</span></th>
                             <th>Asr</th>
                             <th>Mag<span>hrib</span></th>

@@ -41,7 +41,7 @@ var app = angular.module('shalat', ['ngRoute','geolocation'])
 		$http.jsonp(url)
 			.then(function(response){
 				var data = response.data;
-		    	// console.log(data);
+		    	console.log(data);
 
 		    	$scope.prays = data.items;
 		    	$scope.location = data;
@@ -51,14 +51,13 @@ var app = angular.module('shalat', ['ngRoute','geolocation'])
     // Add class now / past
     $scope.endToday = moment().endOf('day');
 	$scope.isPrayNow = function(datePray, timePrayA,timePrayB){
-		var timeServer 	= moment.utc(new Date()),
 
-			datePray 	= moment(new Date(datePray)).format('YYYY-MM-DD'),
-			timePray 	= moment.utc(new Date(datePray+' '+timePrayA)),
-			timePrayNext= moment.utc(new Date(datePray+' '+timePrayB)).subtract(12,'minutes'),
+		var date 	= moment(new Date()).format('DD-MM-YYYY');
+		var timeA 	= moment(date+' '+timePrayA,'DD-MM-YYYY H:mm a');
+		var timeB 	= moment(date+' '+timePrayB,'DD-MM-YYYY H:mm a').subtract(10,'m');
 
-			statusNow 	= moment(new Date(timeServer)).isBetween(new Date(timePray) , new Date(timePrayNext)),
-			statusPast 	= moment(new Date(timeServer)).isAfter(new Date(timePrayNext));
+		var statusNow 	= moment().isBetween(timeA,timeB);
+		var statusPast 	= moment().isAfter(timeB);
 
 		if(statusNow){
 			return 'now';
