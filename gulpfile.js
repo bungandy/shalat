@@ -12,19 +12,20 @@ var gulp        = require('gulp'),
 
 gulp.task('js', function(){
     gulp.src([
-            'bower_components/angular/angular.js',
-            'bower_components/angularjs-geolocation/src/geolocation.js',
-            'bower_components/angular-route/angular-route.js',
-            'bower_components/angular-metatags/angular-metatags-module/angular-metatags.js',
-            
-            'bower_components/moment/moment.js',
+            'node_modules/angular/angular.js',
+            'node_modules/angularjs-geolocation/src/geolocation.js',
+            'node_modules/angular-route/angular-route.js',
+            'node_modules/angular-metatags/angular-metatags-module/angular-metatags.js',
+
+            'node_modules/retina.js/src/retina.js',
+            'node_modules/moment/moment.js',
             
             'src/js/app.js',
 
-            'bower_components/jquery/dist/jquery.js',
-            'src/js/global.js',
+            'node_modules/jquery/dist/jquery.js',
+            'src/js/global.js'
 
-            'bower_components/retina.js/src/retina.js'
+            
         ])
         .pipe(plumber({
           errorHandler: function (error) {
