@@ -10,8 +10,8 @@
   "homepage": "https://bitbucket.org/mineral/starter-ng#readme",
   "description": "Shalat",
   "dependencies": {
-    "angular": "^1.5.3",
-    "angular-route": "^1.5.3",
+    "angular": "^1.7.8",
+    "angular-route": "^1.7.8",
     "angularjs-geolocation": "^0.1.3",
     "bootstrap": "^4.3.1",
     "browser-sync": "^2.9.12",
