@@ -1,7 +1,11 @@
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
 @import "compass/layout";
 @import "compass/css3";
 @import "mixin";
 @import "vars";
+@import "component";
+@import "fonts";
 
 html {
     height: 100%;
@@ -228,8 +232,3 @@ a{
         @include at2x("img/wait","png",100px,100px);
     }
 }
-
-
-@import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
-@import "component";
-@import "fonts";
